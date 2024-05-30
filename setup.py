@@ -11,6 +11,7 @@ setup(
         "langchain-core",
         "langchain-openai",
         "langchain-community",
+        "langchain_qdrant",
         "langchain_text_splitters",
         "numpy",
         "unstructured",

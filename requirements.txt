@@ -1,0 +1,10 @@
+langchain
+langchain_text_splitters
+langchain-openai
+langchain_qdrant
+qdrant_client
+unstructured
+unstructured[docx]
+unstructured[pdf]
+gigachat
+openai==1.9.0
