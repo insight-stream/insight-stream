@@ -8,7 +8,6 @@ from langchain_core.documents import Document
 from langchain_community.document_loaders import UnstructuredFileLoader
 import requests
 import urllib.parse
-from insight_stream.embed import CustomEmbeddings
 import socket
 
 OPENAI_BASE = os.getenv('OPENAI_BASE')
