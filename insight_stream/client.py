@@ -14,6 +14,10 @@ import socket
 OPENAI_BASE = os.getenv('OPENAI_BASE')
 OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
 EMBED_MODEL = os.getenv('EMBED_MODEL')
+ENCODING_FORMAT = os.getenv('ENCODING_FORMAT')
+TIKTOKEN_MODEL = os.getenv('TIKTOKEN_MODEL')
+TIKTOKEN_ENABLED = bool(os.getenv('TIKTOKEN_ENABLED'))
+
 
 QDRANT_URL = os.getenv('QDRANT_URL')
 QDRANT_KEY = os.getenv('QDRANT_KEY')
@@ -22,14 +26,13 @@ QDRANT_VECTOR_SIZE = int(os.getenv('QDRANT_VECTOR_SIZE', 1536))
 SERVER_NAME = os.getenv('SERVER_NAME')
 TOKEN = os.getenv('TOKEN')
 
-embedding = CustomEmbeddings()
-embedding.base_url = f"{OPENAI_BASE}/embeddings"
-embedding.model = EMBED_MODEL
-
-"""embedding = OpenAIEmbeddings(model=EMBED_MODEL,
-							 api_key=OPENAI_API_KEY, 
-							 openai_api_base=OPENAI_BASE),
-							 model_kwargs={"encoding_format": "float"}"""
+embeddings = OpenAIEmbeddings(model=EMBED_MODEL,
+                              openai_api_base=OPENAI_BASE,
+                              openai_api_key=OPENAI_API_KEY,
+                              model_kwargs={"encoding_format": ENCODING_FORMAT},
+                              tiktoken_enabled=TIKTOKEN_ENABLED,
+                              tiktoken_model_name=TIKTOKEN_MODEL,
+                              )
 
 clientQdrant=QdrantClient(url=QDRANT_URL, api_key=QDRANT_KEY)
 
