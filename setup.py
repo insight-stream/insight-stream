@@ -5,7 +5,7 @@ setup(
     version="1.0.0",
     description="InsightStream python library and scripts",
     license='MIT',
-    packages=['insight_stream']
+    packages=['insight_stream'],
     install_requires=[
         "openai",
         "langchain",
