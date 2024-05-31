@@ -1,11 +1,11 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="insightStream",
+    name="insight_stream",
     version="1.0.0",
     description="InsightStream python library and scripts",
     license='MIT',
-    packages=['insightStream'],
+    packages=['insight_stream'],
     install_requires=[
         "openai",
         "langchain",

@@ -1,5 +1,5 @@
-# insight-stream python_client
-Питон клиент для проекта insight-stream
+# insight_stream python client
+Питон клиент для проекта insight stream
 
 В файл .env занести следующие значения:   
 QDRANT_KEY=...   
@@ -17,7 +17,7 @@ SERVER_NAME=https://...
 TOKEN=...   
 
 # Установка   
-pip install git+https://github.com/insight-stream/python_client.git    
+pip install git+https://github.com/insight-stream/insight_stream.git    
 
 # Использование:   
 from insight_stream.client import delete_documents, upload_dir, ask, upload_doc
