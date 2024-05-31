@@ -1,4 +1,4 @@
-# python_client
+# insight-stream python_client
 Питон клиент для проекта insight-stream
 
 В файл .env занести следующие значения:   
