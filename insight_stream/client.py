@@ -62,7 +62,7 @@ def _add_documents(index_id: str, documents: List[Document], file_path: str) -> 
 			)
 	except:
 		pass
-	qdrant = Qdrant(client=clientQdrant, collection_name=index_id, embeddings=embedding)
+	qdrant = Qdrant(client=clientQdrant, collection_name=index_id, embeddings=embeddings)
 
 	docs_for_qdrant = []
 	for doc in documents:
