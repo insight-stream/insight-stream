@@ -16,6 +16,24 @@ TIKTOKEN_ENABLED=...
 SERVER_NAME=https://...   
 TOKEN=...   
 
+
+Для OpenAI файл .env должен выглядеть так:   
+QDRANT_KEY=...   
+QDRANT_URL=https://...qdrant.io:6333   
+QDRANT_VECTOR_SIZE=1536   (значение зафисит от выбранной модели EMBED_MODEL)   
+
+OPENAI_API_KEY=sk-...    
+OPENAI_API_BASE=https://api.openai.com/v1   
+EMBED_MODEL=text-embedding-ada-002  
+ENCODING_FORMAT=float   
+TIKTOKEN_ENABLED=True   
+
+SERVER_NAME=https://...   
+TOKEN=...   
+
+Значение TIKTOKEN_MODEL не устанавливается.   
+
+
 # Установка   
 pip install git+https://github.com/insight-stream/insight_stream.git    
 
