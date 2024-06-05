@@ -129,6 +129,13 @@ def _check_server_availability() -> bool:
 	server_url = urllib.parse.urlparse(SERVER_NAME)
 	host = server_url.hostname
 	port = server_url.port
+
+	if not port:
+		if server_url.scheme == 'https':
+			port = 443
+		elif server_url.scheme == 'http':
+			port = 80
+			
 	try:
 		socket.create_connection((host, port), timeout=5)
 		return True
