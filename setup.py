@@ -20,6 +20,7 @@ setup(
         "unstructured[pdf]",
         "python-dotenv",
         "qdrant_client",
+        "psutil"
     ],
     python_requires=">=3.10",
 )

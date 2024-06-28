@@ -6,6 +6,8 @@ from langchain_qdrant import Qdrant
 from qdrant_client import QdrantClient, models
 from langchain_core.documents import Document
 from langchain_community.document_loaders import UnstructuredFileLoader
+from unstructured.chunking.title import chunk_by_title
+from unstructured.partition.auto import partition
 import requests
 import urllib.parse
 import socket
@@ -53,7 +55,7 @@ def ask(
 	else:
 		return None
 	
-def _add_documents(index_id: str, documents: List[Document], file_path: str) -> List[Document]:
+def _add_documents(index_id: str, documents: List[any], file_path: str) -> List[Document]:
 	"""Добавляем в квадрант документы, являющиеся чанками для одного файла из папки"""
 	try:
 		clientQdrant.create_collection(
@@ -66,9 +68,11 @@ def _add_documents(index_id: str, documents: List[Document], file_path: str) -> 
 
 	docs_for_qdrant = []
 	for doc in documents:
-		new_doc = Document(page_content=doc.page_content, metadata = {
+		new_doc = Document(page_content=str(doc), metadata = {
 			"topic": os.path.splitext(os.path.basename(file_path))[0], 
-			"url": urllib.parse.quote(f'{SERVER_NAME}/documents/{os.path.basename(file_path)}', safe=":/")})
+			"url": urllib.parse.quote(f'{SERVER_NAME}/documents/{os.path.basename(file_path)}', safe=":/"),
+			"extension": os.path.splitext(os.path.basename(file_path))[1],
+			"page_number": doc.metadata.min_page_number})
 		docs_for_qdrant.append(new_doc)
 		
 	try:
@@ -98,8 +102,13 @@ def delete_documents(index_id: str, documents: List[Document]):
 def upload_doc(index_id: str, path: str) -> List[Document]:
 	"""Загрузка документов в индекс квадранта и на сервер"""
 
-	loader = UnstructuredFileLoader(path)
-	chunks = loader.load_and_split()
+	elements = partition(path)
+	chunks = chunk_by_title(elements)
+
+	for chunk in chunks:
+		orig_elements = chunk.metadata.orig_elements
+		min_page_number = min(element.metadata.page_number for element in orig_elements)
+		chunk.metadata.min_page_number = min_page_number
 
 	#загрузка чанков документа в квадрант
 	docs = _add_documents(index_id, chunks, path)
